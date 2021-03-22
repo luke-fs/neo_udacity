@@ -35,7 +35,7 @@ class NearEarthObject:
     # TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
 
-    def __init__(self, designation, name, diameter=float('nan'), hazardous, **info):
+    def __init__(self, designation, name, hazardous, diameter=float('nan'), **info):
         """Create a new `NearEarthObject`.
 
         :param info: A dictionary of excess keyword arguments supplied to the constructor.
@@ -47,7 +47,7 @@ class NearEarthObject:
         # and a missing diameter being represented by `float('nan')`.
         self.designation = designation
         if name == '':
-            self.name = None:
+            self.name = None
         else:
             self.name = name
 
@@ -64,14 +64,21 @@ class NearEarthObject:
     @property
     def fullname(self):
         """Return a representation of the full name of this NEO."""
-        return f"{self.designation} {self.name}"
+        if self.name:
+            return f"{self.designation} ({self.name})"
+        else:
+            return f"{self.designation}"
 
     def __str__(self):
         """Return `str(self)`."""
         # TODO: Use this object's attributes to return a human-readable string representation. ### DONE
         # The project instructions include one possibility. Peek at the __repr__
         # method for examples of advanced string formatting.
-        return f"NearEarthObject(Des: {self.designation}, Name: {self.name}, Dia: {self.diameter}, Haz: {self.hazardous}, Appr: {self.approaches}"
+        if self.hazardous:
+            x = "is"
+        else:
+            x = "is not"
+        return f"NEO {self.fullname} has a diameter of {self.diameter:.3f} km and {x} potentially hazardous."
 
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
@@ -95,7 +102,7 @@ class CloseApproach:
     # TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
 
-    def __init__(self, **info):
+    def __init__(self, time, distance, velocity, neo=None, **info):
         """Create a new `CloseApproach`.
 
         :param info: A dictionary of excess keyword arguments supplied to the constructor.
@@ -106,12 +113,12 @@ class CloseApproach:
         # The `cd_to_datetime` function will be useful.
         self._designation = ''
         # TODO: Use the cd_to_datetime function for this attribute.
-        self.time = None
-        self.distance = 0.0
-        self.velocity = 0.0
+        self.time = cd_to_datetime(time)
+        self.distance = float(distance)
+        self.velocity = float(velocity)
 
         # Create an attribute for the referenced NEO, originally None.
-        self.neo = None
+        self.neo = neo
 
     @property
     def time_str(self):
@@ -129,14 +136,22 @@ class CloseApproach:
         # TODO: Use this object's `.time` attribute and the `datetime_to_str` function to
         # build a formatted representation of the approach time.
         # TODO: Use self.designation and self.name to build a fullname for this object.
-        return ''
+        return f"{datetime_to_str(self.time)}"
+
+    # @property
+    # def fullname(self):
+    #     """Return a representation of the full name of this NEO."""
+    #     if self.name:
+    #         return f"{self.designation} ({self.name})"
+    #     else:
+    #         return f"{self.designation}"
 
     def __str__(self):
         """Return `str(self)`."""
         # TODO: Use this object's attributes to return a human-readable string representation.
         # The project instructions include one possibility. Peek at the __repr__
         # method for examples of advanced string formatting.
-        return f"A CloseApproach ..."
+        return f"At {datetime_to_str(self.time)}, '{self.neo.fullname}' approaches Earth at a distance of {self.distance:.2f} au and a velocity of {self.velocity:.2f} km/s."
 
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
