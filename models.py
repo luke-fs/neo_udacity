@@ -32,7 +32,7 @@ class NearEarthObject:
     initialized to an empty collection, but eventually populated in the
     `NEODatabase` constructor.
     """
-    # TODO: How can you, and should you, change the arguments to this constructor?
+    # How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
 
     def __init__(self, designation, name, hazardous, diameter=float('nan'), **info):
@@ -40,7 +40,7 @@ class NearEarthObject:
 
         :param info: A dictionary of excess keyword arguments supplied to the constructor.
         """
-        # TODO: Assign information from the arguments passed to the constructor ### DONE
+        # Assign information from the arguments passed to the constructor ### DONE
         # onto attributes named `designation`, `name`, `diameter`, and `hazardous`.
         # You should coerce these values to their appropriate data type and
         # handle any edge cases, such as a empty name being represented by `None`
@@ -71,7 +71,7 @@ class NearEarthObject:
 
     def __str__(self):
         """Return `str(self)`."""
-        # TODO: Use this object's attributes to return a human-readable string representation. ### DONE
+        # Use this object's attributes to return a human-readable string representation. ### DONE
         # The project instructions include one possibility. Peek at the __repr__
         # method for examples of advanced string formatting.
         if self.hazardous:
@@ -99,7 +99,7 @@ class CloseApproach:
     private attribute, but the referenced NEO is eventually replaced in the
     `NEODatabase` constructor.
     """
-    # TODO: How can you, and should you, change the arguments to this constructor?
+    # How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
 
     def __init__(self, pdes, time, distance, velocity, neo=None, **info):
@@ -107,12 +107,12 @@ class CloseApproach:
 
         :param info: A dictionary of excess keyword arguments supplied to the constructor.
         """
-        # TODO: Assign information from the arguments passed to the constructor
+        # Assign information from the arguments passed to the constructor
         # onto attributes named `_designation`, `time`, `distance`, and `velocity`.
         # You should coerce these values to their appropriate data type and handle any edge cases.
         # The `cd_to_datetime` function will be useful.
         self._designation = pdes
-        # TODO: Use the cd_to_datetime function for this attribute.
+        # Use the cd_to_datetime function for this attribute.
         self.time = cd_to_datetime(time)
         self.distance = float(distance)
         self.velocity = float(velocity)
@@ -133,9 +133,9 @@ class CloseApproach:
         formatted string that can be used in human-readable representations and
         in serialization to CSV and JSON files.
         """
-        # TODO: Use this object's `.time` attribute and the `datetime_to_str` function to
+        # Use this object's `.time` attribute and the `datetime_to_str` function to
         # build a formatted representation of the approach time.
-        # TODO: Use self.designation and self.name to build a fullname for this object.
+        # Use self.designation and self.name to build a fullname for this object.
         return f"{datetime_to_str(self.time)}"
 
     # @property
@@ -147,6 +147,11 @@ class CloseApproach:
     #         return f"{self.designation}"
 
     def serialize(self):
+        """Class of CloseApproach, serializes on itself
+
+        Returns:
+            dict: a dict of its values
+        """
         result = {
             'datetime_utc': datetime_to_str(self.time),
             'distance_au': self.distance,
@@ -162,10 +167,10 @@ class CloseApproach:
 
     def __str__(self):
         """Return `str(self)`."""
-        # TODO: Use this object's attributes to return a human-readable string representation.
+        # Use this object's attributes to return a human-readable string representation.
         # The project instructions include one possibility. Peek at the __repr__
         # method for examples of advanced string formatting.
-        #return f"At {datetime_to_str(self.time)}, '{self.neo.fullname}' approaches Earth at a distance of {self.distance:.2f} au and a velocity of {self.velocity:.2f} km/s."
+        # return f"At {datetime_to_str(self.time)}, '{self.neo.fullname}' approaches Earth at a distance of {self.distance:.2f} au and a velocity of {self.velocity:.2f} km/s."
         return f"At {datetime_to_str(self.time)}, '{self.neo}' approaches Earth at a distance of {self.distance:.2f} au and a velocity of {self.velocity:.2f} km/s."
 
     def __repr__(self):

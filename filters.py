@@ -33,6 +33,7 @@ class AttributeFilter:
     Concrete subclasses can override the `get` classmethod to provide custom
     behavior to fetch a desired attribute from the given `CloseApproach`.
     """
+
     def __init__(self, op, value):
         """Construct a new `AttributeFilter` from an binary predicate and a
         reference value.
@@ -43,7 +44,7 @@ class AttributeFilter:
         :param op: A 2-argument predicate comparator (such as `operator.le`).
         :param value: The reference value to compare against.
         """
-        
+
         self.value = value
         self.op = op
 
@@ -166,7 +167,6 @@ def create_filters(date=None, start_date=None, end_date=None,
         queries.append(DiameterFilter(operator.le, diameter_max))
     if hazardous is not None:
         queries.append(HazardousFilter(operator.eq, hazardous))
-
 
     return queries
 

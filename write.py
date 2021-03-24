@@ -69,7 +69,7 @@ def write_to_json(results, filename):
     results_output = []
 
     for result in results:
-        results_output.append(result.serialize())
+        results_output.append(result.serialize(F))
 
     with open(filename, 'w') as outfile:
         
