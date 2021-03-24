@@ -8,6 +8,7 @@ extension determines which of these functions is used.
 You'll edit this file in Part 4.
 """
 import csv
+
 import json
 
 
@@ -20,6 +21,7 @@ def write_to_csv(results, filename):
     :param filename: A Path-like object pointing to where the data should be
     saved.
     """
+
     fieldnames = {
                 'datetime_utc': 'String date object as UTC',
                 'distance_au': 'Distance',
@@ -30,10 +32,14 @@ def write_to_csv(results, filename):
                 'potentially_hazardous': 'Potentially hazardous',
             }
 
+
     with open(filename, 'w') as outfile:
         writer = csv.DictWriter(outfile, fieldnames.keys())
+
         writer.writeheader()
+
         for result in results:
+
             cad_object = result.serialize()
             row = {
                 'datetime_utc': cad_object['datetime_utc'],
@@ -61,8 +67,10 @@ def write_to_json(results, filename):
     saved.
     """
     results_output = []
+
     for result in results:
         results_output.append(result.serialize())
 
     with open(filename, 'w') as outfile:
+        
         json.dump(results_output, outfile, indent=2)

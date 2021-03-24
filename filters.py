@@ -43,11 +43,13 @@ class AttributeFilter:
         :param op: A 2-argument predicate comparator (such as `operator.le`).
         :param value: The reference value to compare against.
         """
-        self.op = op
+        
         self.value = value
+        self.op = op
 
     def __call__(self, approach):
         """Invoke `self(approach)`."""
+
         return self.op(self.get(approach), self.value)
 
     @classmethod
@@ -142,16 +144,20 @@ def create_filters(date=None, start_date=None, end_date=None,
 
     if date:
         queries.append(DateFilter(operator.eq, date))
+
     if start_date:
         queries.append(DateFilter(operator.ge, start_date))
     if end_date:
         queries.append(DateFilter(operator.le, end_date))
+
     if distance_min:
         queries.append(DistanceFilter(operator.ge, distance_min))
+
     if distance_max:
         queries.append(DistanceFilter(operator.le, distance_max))
     if velocity_min:
         queries.append(VelocityFilter(operator.ge, velocity_min))
+
     if velocity_max:
         queries.append(VelocityFilter(operator.le, velocity_max))
     if diameter_min:
@@ -160,6 +166,7 @@ def create_filters(date=None, start_date=None, end_date=None,
         queries.append(DiameterFilter(operator.le, diameter_max))
     if hazardous is not None:
         queries.append(HazardousFilter(operator.eq, hazardous))
+
 
     return queries
 
@@ -174,4 +181,5 @@ def limit(iterator, n=None):
     if n:
         return islice(iterator, n)
     else:
+
         return iterator

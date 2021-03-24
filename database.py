@@ -92,6 +92,7 @@ class NEODatabase:
         """
         if name in self._data:
             return self.get_neo_by_designation(self._data[name])
+            
         return None
 
     def query(self, filters=()):
@@ -108,7 +109,9 @@ class NEODatabase:
         """
         if filters:
             for approach in self._approaches:
+
                 if all(map(lambda f: f(approach), filters)):
+
                     yield approach
         else:
             for approach in self._approaches:
