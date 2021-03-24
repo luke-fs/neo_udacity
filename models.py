@@ -146,6 +146,20 @@ class CloseApproach:
     #     else:
     #         return f"{self.designation}"
 
+    def serialize(self):
+        result = {
+            'datetime_utc': datetime_to_str(self.time),
+            'distance_au': self.distance,
+            'velocity_km_s': self.velocity,
+            'neo': {
+                'designation': self.neo.designation,
+                'name': self.neo.name,
+                'diameter_km': self.neo.diameter,
+                'potentially_hazardous': self.neo.hazardous
+            },
+        }
+        return result
+
     def __str__(self):
         """Return `str(self)`."""
         # TODO: Use this object's attributes to return a human-readable string representation.
